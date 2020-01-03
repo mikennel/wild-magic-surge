@@ -3,19 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const admin = {
-  main: () => import('@/components/routed/Admin/Main.vue'),
-}
-
 const _public = {
   main: () => import('@/components/routed/Public/Main.vue'),
   home: () => import('@/components/routed/Public/Home.vue'),
-  signUp: () => import('@/components/routed/Public/SignUp.vue'),
-}
-
-const file = {
-  main: () => import('@/components/routed/File/Main.vue'),
-  dashboard: () => import('@/components/routed/File/Dashboard.vue'),
 }
 
 const authorizeEntry = (options) => {
@@ -41,36 +31,7 @@ const router = new Router({
             transIndex: 0,
           },
         },
-        {
-          path: 'sign-up',
-          name: 'PublicSignUp',
-          component: _public.signUp,
-          meta: {
-            transIndex: 30,
-          },
-        },
       ],
-    },
-    {
-      path: '/files',
-      component: file.main,
-      beforeEnter: (to, from, next) => {
-        authorizeEntry({to, from, next})
-      },
-      children: [
-        {
-          path: '/',
-          name: 'FileDashboard',
-          component: file.dashboard,
-          meta: {
-            transIndex: 50,
-          },
-        },
-      ],
-    },
-    {
-      path: 'admin',
-      component: admin.main,
     },
   ]
 })
