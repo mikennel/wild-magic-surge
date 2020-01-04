@@ -19,14 +19,7 @@ export default {
   .pro-nav-main
     .pro-nav-container
       .title-holder
-        .title(
-          @click='$flashLoading(() => $router.push({name: "PublicHome"}))'
-        ) Vue Firebase Template
-      .actions
-        .logout(
-          v-if='auth'
-          @click='logout'
-        ) Logout
+        .title Wild Magic Surge
 </template>
 
 <style lang="sass" scoped>

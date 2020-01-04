@@ -9,7 +9,7 @@ export default {
     Vue.prototype.$flashLoading = function (func) {
       this.$showLoading()
       setTimeout(func, 250)
-      setTimeout(() => this.$hideLoading(), 500)
+      setTimeout(() => this.$hideLoading(), 600)
     }
   },
 }
