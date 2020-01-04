@@ -23,14 +23,9 @@ export default {
 <template lang="pug">
   .public-main-main
     .public-main-container
-      pro-nav
-      transition(
-        :name='transtionName'
-        mode='out-in'
+      router-view.router-view(
+        :key="$route.name"
       )
-        router-view.router-view(
-          :key="$route.name"
-        )
 </template>
 
 <style lang="sass" scoped>
@@ -40,5 +35,5 @@ export default {
     .public-main-container
       background-color: white
       .router-view
-        height: calc(100vh - #{$nav-height})
+        height: 100vh
 </style>
