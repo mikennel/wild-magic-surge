@@ -7,118 +7,182 @@ export default {
   },
   data () {
     return {
-      form: {
-        email: '',
-        password: '',
-      },
-      formOptions: {
-        email: {
-          errorIf: (val) => this.$regex.is(val).a('email') ? '' : 'Enter valid email',
-          title: 'Email',
-          onEnter: this.login,
-        },
-        password: {
-          errorIf: () => '',
-          title: 'Password',
-          type: 'password',
-          onEnter: this.login,
-        },
-      },
+      hasSurged: false,
+      rgb: ["255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5"],
+      trans: ["100","100","100","100"],
+      surgeRoll: null,
+      surgeTable: ["Roll on this table every round for 1 minute, ignoring duplicate rolls.",
+        "Caster and and one target of the spell switch positions after spell is cast.",
+        "Caster can see invisible creatures for 1 minute.",
+        "A horse appears nearby. It is on fire.",
+        "A small construct appears within 5 feet for one minute. It is determined to clean everything that it can",
+        "The caster grows viney plants from their armpits. These remain until shaved off",
+        "Immediately after the spell is resolved, cast fireball at 3rd level centered on self. This does not expend a spell slot.",
+        "Nonmagical weapons within 60ft of the caster turn to food for 1 minute",
+        "Immediately after the spell is resolved, cast magic missile as 5th-level spell. All of the missiles vaguley resemble cats and meow as they hit the target.",
+        "The caster breathes a 30ft cone of fire the next time they speak.",
+        "The caster's height changes by 1d10 inches. On an even number the caster grows, on an odd number they shrink",
+        "The target is cocooned in crystal, unable to act and perfectly preserved. Th cocoon lasts until someone breaks it or 24 hours.",
+        "Immediately after the spell is resolved, cast confusion centered on self. This does not expend a spell slot.",
+        "Immediately after the spell is resolved, cast thunder wave in a random direction. This does not expend a spell slot.",
+        "The caster regains 5 HP every round for 1 minute",
+        "Target is transported to the Ethereal Plane for 1 minute",
+        "The caster grows a long, luxurious beard made of vibrant, colorful feathers. The next time the caster sneezes, the beard explodes in a cloud of feathers.",
+        "A swarm of rats swell up from seemingly nowhere and carry the caster 30’ in random direction before disappearing from whence they came.",
+        "Immediately after the spell is resolved, cast grease centered on self. This does not expend a spell slot.",
+        "Creatures within 30ft of the caster must pass a DC 15 Strength saving throw are become restrained by sticky goop until the end of their next turn.",
+        "For 1 minute, targets have disadvantage on saving throws to resist the effects of your spells.",
+        "A mature oak sprouts in an unoccupied space within 60 feet of the caster.",
+        "The caster’s skin turns vibrant blue. This can only be removed by a remove curse spell.",
+        "The caster can only speak to animals for 24 hours. To others, the caster sounds as if he or she is making various animal sounds when talking.",
+        "A third eye grows on the caster's forehead and remains for 1 minute. While the third eye is present, the caster has advantage on Perception checks.",
+        "The caster's weight increases by 100 lbs and their movement speed is halved. After 1 minute, the caster's weight and movement return to normal, though their clothes may have stretched...",
+        "For 1 minute, when the caster wishes to cast a spell of 1st level or higher with a cast time of 1 Action or 1 Bonus Action, they must use both their Action and Bonus Action to cast the spell.",
+        "The caster doesn't feel well. On their next turn, the caster takes no action and vomits 1d100 silver pieces.",
+        "The caster teleports up to 60 feet to unoccupied space.","Caster’s hands become covered in honey.",
+        "The caster is transported to Astral Plane until end of their next turn",
+        "Cabbages sprout abundantly within a 30’ radius",
+        "Max dmg of next damaging spell cast in next minute",
+        "Caster can mimic target’s voice perfectly for 24 hrs",
+        "Age changes 1d10 years. Odd: Younger, Even: Older",
+        "Caster grows antlers, sheds them in 24 hours",
+        "1d6 flumphs appear for 1 minute in 60’; scared",
+        "Caster and target flung 10’ in opposite directions",
+        "Regain 2d10 HP",
+        "Gravity reverses in 30’ radius till start of next turn",
+        "Become potted plant until start of next turn",
+        "Caster distracted by cloud of gnats for next minute",
+        "For next minute, teleport up to 20’ as bonus action",
+        "Spell ricochets off target to random creature in 30’",
+        "Cast levitate on self",
+        "Caster’s money cycles: CP -> SP -> GP -> CP",
+        "Unicorn appears within 5’ for next minute",
+        "One of target’s eyes replaced by 500 GP sapphire",
+        "Cannot speak, emit pink bubbles instead",
+        "Smoke fumes from caster’s ears for 1 minute",
+        "Spectral shield, +2 AC, no magic missile for 1 minute",
+        "Caster gains 3’ prehensile tail for 1 hour",
+        "Cannot get drunk for 5d6 days",
+        "All unlocked doors/windows in 60’ fly open",
+        "Hair falls out, grows back within 24 hours",
+        "Caster’s face blackened by small explosion",
+        "For 1 minute, flammable touch (not worn/carried)",
+        "Geyser lifts caster 50’ in air until start of next turn",
+        "Regain lowest-level expended spell slot",
+        "A confused bear appears within 60’ for 1 minute",
+        "For 1 minute, can only shout when speaking",
+        "Grass instantly sprouts to 3’ tall within 20’, 1 minute",
+        "Cast fog cloud centered on self",
+        "Caster can only breathe underwater for next minute",
+        "Up to 3 creatures of choice in 30’:4d10 lightning dmg",
+        "Caster falls Unconscious until start of next turn",
+        "Frightened by nearest creature until end of next turn",
+        "If target dies in next minute, its ghost haunts caster",
+        "Everyone in 30’: invisible for 1 minute or till atk/cast",
+        "All within 60’ saves vs Wis 15 or drops w/e they hold",
+        "Resistance to all damage for next minute",
+        "Everything within 20’ pulled 10’ toward caster",
+        "Random creature within 60’ is poisoned for 24 hours",
+        "Caster smells like lavender for 1d6 days",
+        "Glow brightly for 1 minute. Blind others within 5’.",
+        "Casters clothes become uncomfortably tight",
+        "Cast polymorph on self. Fail save: Sheep form.",
+        "If spell would kill target, target’s extremities fly apart",
+        "Illusory butterflies/flowers flutter in 5’ radius 1 min.",
+        "Caster trapped in a giant glass ball",
+        "Take one additional action immediately",
+        "Caster’s fists become huge, deal 1d8 B dmg, 1 min.",
+        "Others in 30’: 1d10 necro dmg. Gain HP equal to loss",
+        "Loud voice ridicules caster on init count 20 for 1 min",
+        "Cast mirror image",
+        "Caster’s arms become tentacles for 1 minute",
+        "Cast fly on random creature within 60’",
+        "Large floating eye follows caster for 1 hour",
+        "Become invisible/silent for 1 minute or till atk/cast",
+        "Caster’s INT and STR swap for 1 hour",
+        "If you die in next minute, come back per reincarnate",
+        "Caster sees everyone as a decaying corpse for 24h",
+        "Size increases by 1 size category for 1 minute",
+        "All light sources within 60’ radius extinguished",
+        "You and all in 30’: vulnerable to piercing dmg, 1 min.",
+        "Caster becomes frightened of a color for 1 hour",
+        "Surrounded by faint ethereal music for 1 minute",
+        "Caster suffers a head cold for 24 hours",
+        "Regain all expended Sorcery Points",
+        "Next phrase spoken by caster becomes true"]
     }
   },
   methods: {
-    async login () {
-      this.$showLoading()
-      let loginRes
-      try {
-        loginRes = await this.$auth.signInWithEmailAndPassword(this.form.email, this.form.password)
-      } catch (err) {
-        this.$hideLoading()
-        return this.$toast(err.message)
-      }
-      loginRes
-    },
+    surge() {
+      this.hasSurged = true
+      this.surgeRoll = Math.floor(Math.random() * this.surgeTable.length)
+    }
   },
+  computed: {
+    bgRadials() {
+      return `radial-gradient(
+          circle at top left,
+          rgba(${this.rgb[0]}), 
+          transparent ${this.trans[0]}px
+        ),
+        radial-gradient(
+          circle at top right,
+          rgba(${this.rgb[1]}), 
+          transparent ${this.trans[1]}px
+        ),
+        radial-gradient(
+          at bottom left,
+          rgba(${this.rgb[2]}), 
+          transparent ${this.trans[2]}px
+        ),
+        radial-gradient(
+          at bottom right,
+          rgba(${this.rgb[3]}), 
+          transparent ${this.trans[3]}px
+        )`
+    } 
+  }
 }
 </script>
 
 <template lang="pug">
-  .public-home-main
-    .public-home-container
-      .content
-        .header.font-1-thin Be confident about 
-          span.bold.font-1-bold your file.
-        .info-action
-          .info-holder
-            .item File in minutes
-            .item 100s of file types
-            .item Up-to-date language
-          .action
-            .pro-form
-              .form-row(
-                v-for='(options, field) in formOptions'
-              )
-                pro-input(
-                  :options='options'
-                  v-model='form[field]'
-                )
-              .form-row.buttons-2
-                .pro-button(
-
-                ) Forgot Password
-                .pro-button.outline.major(
-                  @click='login'
-                ) Sign in
-        .sign-up-holder
-          .copy Don't have an account? 
-          .pro-button.outline(
-            @click='() => $router.push({name: "PublicSignUp"})'
-          ) Get one here
+  .main-container(
+    :style='{background: bgRadials}'
+  )
+    .grid
+      .info
+        .text(
+          v-if='!hasSurged'
+        ) Looks like your wild magic is surging...
+        .text(
+          v-if='hasSurged'
+        ) 
+          span {{surgeTable[surgeRoll]}} 
+      .button
+        .pro-button.outline.major(
+          @click='surge()'
+        ) Surge!
 </template>
 
 <style lang="sass" scoped>
   @import '$vars'
   @import '$styles/form.sass'
-  .public-home-main
-    .public-home-container
-      .content
-        display: grid
-        justify-items: center
-        padding-top: 80px
-        width: fit-content
-        margin: 0 auto
-        .header
-          font-size: 3em
-          padding: 30px 0
-          > .bold
-            text-decoration: underline
-        .info-action
-          padding: 15px 0
-          width: 100%
-          display: grid
-          grid-template-columns: max-content auto
-          .info-holder
-            background-color: $nh-yellow
-            border:  thin solid $nh-amber
-            padding: 20px 35px
-            .item
-              @extend .font-1-thin
-              display: list-item
-              list-style-type: disc
-              list-style-position: inside
-              font-size: 1.4em
-              margin: 25px 0
-              width: fit-content
-          .action
-            padding: 20px 0 0 80px
-            .pro-form
-              .buttons-1
-                padding-top: 15px
-        .sign-up-holder
-          padding: 50px 0
-          justify-self: baseline
-          > *
-            display: inline
-          .pro-button
-            margin-left: 25px
+  .main-container
+    transition: .5s
+    .grid
+      grid-template-rows: 90% 10%
+      grid-tempalte-columns: 100%
+      height: 100%
+      width: 100%
+      max-height: 40em
+      .info
+        .text
+          padding: 2em
+          margin: 2em
+          border-radius: 1em
+          background-color: #ffffff88
+    .grid, .info, .button
+      display: grid
+      justify-content: center
+      align-content: center
 </style>
