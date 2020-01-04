@@ -9,8 +9,10 @@ export default {
     return {
       hasSurged: false,
       rgb: ["255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5"],
-      trans: ["100","100","100","100"],
+      size: ["100","100","100","100"],
       surgeRoll: null,
+      bgRadials: null,
+      bgColor: null,
       surgeTable: ["Roll on this table every round for 1 minute, ignoring duplicate rolls.",
         "Caster and and one target of the spell switch positions after spell is cast.",
         "Caster can see invisible creatures for 1 minute.",
@@ -117,44 +119,60 @@ export default {
     surge() {
       this.hasSurged = true
       this.surgeRoll = Math.floor(Math.random() * this.surgeTable.length)
-    }
-  },
-  computed: {
-    bgRadials() {
-      return `radial-gradient(
+      this.bgColor = `rgba(${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 1)`
+      this.rgb.forEach((color, idx) => {
+        this.rgb[idx] = `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 0.5`
+        this.size[idx] = `${this.sizeVal()}`
+      })
+      this.bgRadials = this.setBgRadials()
+    },
+    colorVal() {
+      return Math.floor((Math.random() * 255) +1)
+    },
+    sizeVal() {
+      return Math.floor((Math.random() * 300) +200)
+    },
+    setBgRadials() {
+      let rgb = this.rgb
+      let size = this.size
+      let returnVal = `radial-gradient(
           circle at top left,
-          rgba(${this.rgb[0]}), 
-          transparent ${this.trans[0]}px
+          rgba(${rgb[0]}), 
+          transparent ${size[0]}px
         ),
         radial-gradient(
           circle at top right,
-          rgba(${this.rgb[1]}), 
-          transparent ${this.trans[1]}px
+          rgba(${rgb[1]}), 
+          transparent ${size[1]}px
         ),
         radial-gradient(
           at bottom left,
-          rgba(${this.rgb[2]}), 
-          transparent ${this.trans[2]}px
+          rgba(${rgb[2]}), 
+          transparent ${size[2]}px
         ),
         radial-gradient(
           at bottom right,
-          rgba(${this.rgb[3]}), 
-          transparent ${this.trans[3]}px
+          rgba(${rgb[3]}), 
+          transparent ${size[3]}px
         )`
+      return returnVal
     } 
+  },
+  computed: {
   }
 }
 </script>
 
 <template lang="pug">
   .main-container(
-    :style='{background: bgRadials}'
+    :style='{background: bgRadials, "background-color": bgColor}'
   )
     .grid
       .info
         .text(
           v-if='!hasSurged'
-        ) Looks like your wild magic is surging...
+        ) 
+          h1 Looks like your wild magic is about to surge...
         .text(
           v-if='hasSurged'
         ) 
@@ -171,19 +189,20 @@ export default {
   @import '$styles/form.sass'
   .main-container
     transition: .5s
+    font-size: 1.2em
     .grid
       grid-template-rows: 90% 10%
       grid-tempalte-columns: 100%
       height: 100%
       width: 100%
-      max-height: 40em
+      max-height: 40rem
       .info
         .text
           padding: 2em
           margin: 2em
           border-radius: 1em
           background-color: #ffffff88
-          h3
+          h1, h3
             text-align: center
           p
             text-align: justify
