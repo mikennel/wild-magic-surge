@@ -130,7 +130,7 @@ export default {
       return Math.floor((Math.random() * 255) +1)
     },
     sizeVal() {
-      return Math.floor((Math.random() * 300) +200)
+      return Math.floor((Math.random() * 100) +20)
     },
     setBgRadials() {
       let rgb = this.rgb
@@ -138,22 +138,22 @@ export default {
       let returnVal = `radial-gradient(
           circle at top left,
           rgba(${rgb[0]}), 
-          transparent ${size[0]}px
+          transparent ${size[0]}vw
         ),
         radial-gradient(
           circle at top right,
           rgba(${rgb[1]}), 
-          transparent ${size[1]}px
+          transparent ${size[1]}vw
         ),
         radial-gradient(
           at bottom left,
           rgba(${rgb[2]}), 
-          transparent ${size[2]}px
+          transparent ${size[2]}vw
         ),
         radial-gradient(
           at bottom right,
           rgba(${rgb[3]}), 
-          transparent ${size[3]}px
+          transparent ${size[3]}vw
         )`
       return returnVal
     } 
@@ -196,6 +196,8 @@ export default {
       height: 100%
       width: 100%
       max-height: 40rem
+      max-width: 40rem
+      margin: auto
       .info
         .text
           padding: 2em 1em
