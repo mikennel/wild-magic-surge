@@ -24,7 +24,7 @@ export default {
         "Immediately after the spell is resolved, cast magic missile as 5th-level spell. All of the missiles vaguley resemble cats and meow as they hit the target.",
         "The caster breathes a 30ft cone of fire the next time they speak.",
         "The caster's height changes by 1d10 inches. On an even number the caster grows, on an odd number they shrink",
-        "The target is cocooned in crystal, unable to act and perfectly preserved. Th cocoon lasts until someone breaks it or 24 hours.",
+        "The target is cocooned in crystal, unable to act and perfectly preserved. The cocoon lasts until someone breaks it or 24 hours.",
         "Immediately after the spell is resolved, cast confusion centered on self. This does not expend a spell slot.",
         "Immediately after the spell is resolved, cast thunder wave in a random direction. This does not expend a spell slot.",
         "The caster regains 5 HP every round for 1 minute",
@@ -179,7 +179,7 @@ export default {
           h3 {{surgeRoll+1}}
           p {{surgeTable[surgeRoll]}} 
       .button
-        .pro-button.outline.major(
+        .pro-button.outline(
           @click='surge()'
         ) Surge!
 </template>
@@ -189,7 +189,7 @@ export default {
   @import '$styles/form.sass'
   .main-container
     transition: .5s
-    font-size: 1.2em
+    font-size: 1.3em
     .grid
       grid-template-rows: 90% 10%
       grid-tempalte-columns: 100%
@@ -198,14 +198,15 @@ export default {
       max-height: 40rem
       .info
         .text
-          padding: 2em
+          padding: 2em 1em
           margin: 2em
-          border-radius: 1em
-          background-color: #ffffff88
           h1, h3
             text-align: center
           p
             text-align: justify
+    .text, .pro-button.outline
+      border-radius: 1em
+      background-color: #ffffff88
     .grid, .info, .button
       display: grid
       justify-content: center
