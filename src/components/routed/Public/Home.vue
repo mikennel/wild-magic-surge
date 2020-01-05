@@ -111,7 +111,7 @@ export default {
         "The caster is surrounded by faint, ethereal music for 1 minute.",
         "The caster suffers a head cold for 24 hours.",
         "Regain all expended Sorcery Points.",
-        "The next phrase spoken out loud by caster becomes true to some degree."]
+        "Purple Rain. A light drizzle of purple hued water drizzles down from the clouds (or ceiling) in a 100ft radius centered on the caster's position. Any allies in the area when the rain starts gain 2d6 temporary hp. The rain lasts for an hour."]
     }
   },
   methods: {
