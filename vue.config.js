@@ -15,7 +15,7 @@ module.exports = {
       .set('$vars', resolve('src/global/styles/vars.sass'))
   },
   pwa: {
-    name: 'My App',
+    name: 'Wild Magic Surge',
     themeColor: '#4DBA87',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',

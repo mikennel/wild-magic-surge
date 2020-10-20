@@ -60,6 +60,7 @@ export default {
     getSurgeTable () {
       this.$firebase.database().ref('/surge_table/').once('value', (ss) => {
         this.surgeTable = ss.val()
+        console.log('table size', this.surgeTable.length)
       })
     } 
   },

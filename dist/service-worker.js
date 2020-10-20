@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.ed43a9daff60d9348946de5f2c20cd4b.js"
+  "/precache-manifest.4d3eed1ab41926babd031b47135ac8b8.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-firebase-template"});
