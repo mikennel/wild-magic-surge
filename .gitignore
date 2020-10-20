@@ -1,0 +1,9 @@
+node_modules
+functions/firebase-debug.log
+functions/.runtimeconfig.json
+.firebase/hosting.ZGlzdA.cache
+dist
+dist/service-worker.js
+dist/index.html
+firebase-debug.log
+src/.DS_Store
