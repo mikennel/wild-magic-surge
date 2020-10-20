@@ -13,6 +13,7 @@ export const auth = firebase.auth()
 
 Vue.use({
   install: Vue => {
+    Vue.prototype.$firebase = firebase
     Vue.prototype.$firestore = firebase.firestore()
     Vue.prototype.$auth = auth
     Vue.prototype.$storage = firebase.storage()
