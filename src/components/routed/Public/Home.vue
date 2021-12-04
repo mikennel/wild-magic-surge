@@ -138,8 +138,8 @@ export default {
       margin: auto
       .info
         .text
-          padding: 1rem 1em
-          margin: 2em
+          padding: 1rem
+          margin: 1rem
           h1, h3
             text-align: center
           p
@@ -163,5 +163,13 @@ export default {
       display: grid
       justify-content: center
       align-content: center
+      &.options
+        grid-template-columns: 1fr 1fr
+        justify-items: center
+        width: 80%
+        margin: auto
+        @media (max-width: 400px)
+          grid-template-columns: 1fr
+          row-gap: 1rem
 
 </style>
