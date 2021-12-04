@@ -9,22 +9,30 @@ export default {
       hasSurged: false,
       rgb: ["255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5"],
       size: ["100","100","100","100"],
-      surgeRoll: null,
+      surgeRoll: [],
       bgRadials: null,
       bgColor: null,
       surgeTable: [],
+      numSurges: 0,
+      displaySurge: 0,
     }
   },
   methods: {
     surge() {
       this.hasSurged = true
-      this.surgeRoll = Math.floor(Math.random() * this.surgeTable.length)
+      for (let i = 0; i < this.numSurges; i++) {
+        this.surgeRoll[i] = Math.floor(Math.random() * this.surgeTable.length)
+      }
       this.bgColor = `rgba(${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 1)`
       this.rgb.forEach((color, idx) => {
         this.rgb[idx] = `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 0.5`
         this.size[idx] = `${this.sizeVal()}`
       })
       this.bgRadials = this.setBgRadials()
+    },
+    setSurges(numSurges) {
+      this.numSurges = numSurges
+      this.surge()
     },
     colorVal() {
       return Math.floor((Math.random() * 255) +1)
@@ -85,10 +93,31 @@ export default {
         .text(
           v-if='hasSurged'
         ) 
-          h3 {{surgeRoll+1}}
-          p {{surgeTable[surgeRoll]}} 
-      .button
+          h3(
+            v-if='numSurges === 1'
+          ) {{surgeRoll[displaySurge]+1}}
+          .surge-options(
+            v-if='numSurges === 2'
+          )
+            .pro-button.surge-option(
+              v-for='(option,idx) in surgeRoll'
+              @click='displaySurge = idx'
+              :class='{selected: displaySurge === idx}'
+            ) {{surgeRoll[idx]+1}}
+          p {{surgeTable[surgeRoll[displaySurge]]}} 
+      .button.options(
+        v-if='!hasSurged'
+      )
         .pro-button.outline(
+          @click='setSurges(1)'
+        ) Surge Once!
+        .pro-button.outline(
+          @click='setSurges(2)'
+        ) Surge Twice!
+      .button(
+        v-if='hasSurged'
+      )
+        .pro-button(
           @click='surge()'
         ) Surge!
 </template>
@@ -109,17 +138,30 @@ export default {
       margin: auto
       .info
         .text
-          padding: 2em 1em
+          padding: 1rem 1em
           margin: 2em
           h1, h3
             text-align: center
           p
             text-align: justify
-    .text, .pro-button.outline
+            margin-top: 0.75rem
+          .surge-options
+            display: grid
+            grid-template-columns: 1fr 1fr
+            justify-items: center
+            .surge-option
+              background-color: transparent
+              transition: 0.25s
+              &.selected
+                font-weight: 600
+                width: fit-content
+                background-color: #ffffff33
+    .text, .pro-button
       border-radius: 1em
       background-color: #ffffff88
     .grid, .info, .button
       display: grid
       justify-content: center
       align-content: center
+
 </style>
