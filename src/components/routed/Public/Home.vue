@@ -7,8 +7,7 @@ export default {
   data () {
     return {
       hasSurged: false,
-      rgb: ["255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5", "255,255,255,0.5"],
-      size: ["100","100","100","100"],
+      positions: ["circle at top left","circle at top right","at bottom left","at bottom right"],
       surgeRoll: [],
       bgRadials: null,
       bgColor: null,
@@ -24,10 +23,6 @@ export default {
         this.surgeRoll[i] = Math.floor(Math.random() * this.surgeTable.length)
       }
       this.bgColor = `rgba(${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 1)`
-      this.rgb.forEach((color, idx) => {
-        this.rgb[idx] = `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 0.5`
-        this.size[idx] = `${this.sizeVal()}`
-      })
       this.bgRadials = this.setBgRadials()
     },
     setSurges(numSurges) {
@@ -37,32 +32,21 @@ export default {
     colorVal() {
       return Math.floor((Math.random() * 255) +1)
     },
+    rgbVal() {
+      return `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, ${Math.floor((Math.random() * 50) +25)}`
+    },
     sizeVal() {
-      return Math.floor((Math.random() * 100) +20)
+      return Math.floor((Math.random() * 100) + 40)
     },
     setBgRadials() {
-      let rgb = this.rgb
-      let size = this.size
-      let returnVal = `radial-gradient(
-          circle at top left,
-          rgba(${rgb[0]}), 
-          transparent ${size[0]}vw
-        ),
-        radial-gradient(
-          circle at top right,
-          rgba(${rgb[1]}), 
-          transparent ${size[1]}vw
-        ),
-        radial-gradient(
-          at bottom left,
-          rgba(${rgb[2]}), 
-          transparent ${size[2]}vw
-        ),
-        radial-gradient(
-          at bottom right,
-          rgba(${rgb[3]}), 
-          transparent ${size[3]}vw
-        )`
+      let returnVal = ""
+      this.positions.forEach((position,idx) => {
+        returnVal += `radial-gradient(
+          ${position},
+          rgba(${this.rgbVal()}), 
+          transparent ${this.sizeVal()}vw
+        )${idx < this.positions.length-1 ? "," : ""}`
+      })
       return returnVal
     },
     getSurgeTable () {
