@@ -15,8 +15,11 @@ export default {
 </template>
 
 <style lang="sass">
+  @import '$vars'
   body
+    background-color: $nh-yellow
     margin: 0
+    font-family: $font-1
   #app
     position: relative
 </style>
