@@ -1,10 +1,6 @@
 <script>
-import ProNav from '$common/ProNav'
 export default {
   name: 'PublicMain',
-  components: {
-    'pro-nav': ProNav,
-  },
   watch: {
     '$route' (newRoute, oldRoute) {
       const isHigherRoute = newRoute.meta.transIndex > oldRoute.meta.transIndex
@@ -29,8 +25,6 @@ export default {
 </template>
 
 <style lang="sass" scoped>
-  @import '$vars'
-  @import '$styles/transitions.sass'
   .public-main-main
     .public-main-container
       background-color: white
