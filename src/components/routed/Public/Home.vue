@@ -123,6 +123,8 @@ export default {
 </template>
 
 <style lang="sass" scoped>
+  @import '$vars'
+  @import '$styles/form.sass'
   .main-container
     transition: .5s
     font-size: 1.3em

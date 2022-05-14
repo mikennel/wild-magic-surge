@@ -25,6 +25,7 @@ export default {
 </template>
 
 <style lang="sass" scoped>
+  @import '$vars'
   .public-main-main
     .public-main-container
       background-color: white
