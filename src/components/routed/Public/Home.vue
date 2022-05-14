@@ -7,7 +7,7 @@ export default {
   data () {
     return {
       hasSurged: false,
-      positions: ["circle at top left","circle at top right","at bottom left","at bottom right"],
+      positions: ["circle at top left","circle at top right","circle at bottom left","circle at bottom right"],
       surgeRoll: [],
       bgRadials: null,
       bgColor: null,
@@ -33,17 +33,28 @@ export default {
       return Math.floor((Math.random() * 255) +1)
     },
     rgbVal() {
-      return `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, ${Math.floor((Math.random() * 50) +25)}`
+      return `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, ${((Math.random() * 1.0) + 0.1 ).toFixed(1)}`
     },
     sizeVal() {
-      return Math.floor((Math.random() * 100) + 40)
+      return Math.floor((Math.random() * 100) + 30)
+    },
+    setPositions() {
+      const numPositions = Math.floor(Math.random() * 4 + 1)
+      this.positions = []
+      for (let i = 0; i <= numPositions; i++) {
+        const x = Math.floor((Math.random() * 100) + 1)
+        const y = Math.floor((Math.random() * 100) + 1)
+        this.positions.push(`circle at ${x}% ${y}%`)
+      }
     },
     setBgRadials() {
       let returnVal = ""
+      this.setPositions()
       this.positions.forEach((position,idx) => {
         returnVal += `radial-gradient(
           ${position},
-          rgba(${this.rgbVal()}), 
+          rgba(${this.rgbVal()}),
+          ${Math.floor(Math.random() * 2) ? `rgba(${this.rgbVal()}),` : ""}
           transparent ${this.sizeVal()}vw
         )${idx < this.positions.length-1 ? "," : ""}`
       })
@@ -54,7 +65,7 @@ export default {
         this.surgeTable = ss.val()
         console.log('table size', this.surgeTable.length)
       })
-    } 
+    },
   },
   computed: {
   },
