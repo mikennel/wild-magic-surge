@@ -1,9 +1,6 @@
 <script>
-<<<<<<< HEAD
 import Airtable from 'airtable'
 
-=======
->>>>>>> 20a1fc58f55dd96f1fb3fe7497b3e4cdc335287f
 export default {
   name: 'PublicHome',
   components: {
@@ -65,7 +62,6 @@ export default {
       return returnVal
     },
     getSurgeTable () {
-<<<<<<< HEAD
       const airtableKey = import.meta.env.VITE_AIRTABLE_KEY
       const airtableBaseId = ''
       Airtable.configure({apiKey: airtableKey})
@@ -81,8 +77,6 @@ export default {
 
       
 
-=======
->>>>>>> 20a1fc58f55dd96f1fb3fe7497b3e4cdc335287f
       // this.$firebase.database().ref('/surge_table/').once('value', (ss) => {
       //   this.surgeTable = ss.val()
       //   console.log('table size', this.surgeTable.length)
@@ -147,11 +141,7 @@ export default {
   font-size: 1.3em
   .grid
     grid-template-rows: 80% 20%
-<<<<<<< HEAD
     grid-template-columns: 100%
-=======
-    grid-tempalte-columns: 100%
->>>>>>> 20a1fc58f55dd96f1fb3fe7497b3e4cdc335287f
     height: 100%
     width: 100%
     max-height: 40rem
