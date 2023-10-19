@@ -1,4 +1,5 @@
 <script>
+import { RouterLink, RouterView } from 'vue-router'
 export default {
   name: 'App',
   methods: {
@@ -10,16 +11,12 @@ export default {
 
 
 <template lang='pug'>
-  #app
-    router-view
+#app
+  RouterView
 </template>
 
 <style lang="sass">
-  @import '$vars'
-  body
-    background-color: $nh-yellow
-    margin: 0
-    font-family: $font-1
-  #app
-    position: relative
+@import './assets/vars'
+body
+  font-family: $font-1
 </style>
