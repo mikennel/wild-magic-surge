@@ -1,4 +1,6 @@
 <script>
+import Airtable from 'airtable'
+
 export default {
   name: 'PublicHome',
   components: {
@@ -60,6 +62,21 @@ export default {
       return returnVal
     },
     getSurgeTable () {
+      const airtableKey = import.meta.env.VITE_AIRTABLE_KEY
+      const airtableBaseId = ''
+      Airtable.configure({apiKey: airtableKey})
+      const base = Airtable.base('appNZQKmwZoWDBqC6/tblYEsaUHNC0giUR7')
+      base
+      base('tblYEsaUHNC0giUR7/viw3jxP7zcWLqBT8A').select().firstPage((err, records) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        console.log(records)
+      })
+
+      
+
       // this.$firebase.database().ref('/surge_table/').once('value', (ss) => {
       //   this.surgeTable = ss.val()
       //   console.log('table size', this.surgeTable.length)
@@ -124,7 +141,7 @@ export default {
   font-size: 1.3em
   .grid
     grid-template-rows: 80% 20%
-    grid-tempalte-columns: 100%
+    grid-template-columns: 100%
     height: 100%
     width: 100%
     max-height: 40rem
