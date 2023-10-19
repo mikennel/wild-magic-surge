@@ -19,4 +19,5 @@ export default {
 @import './assets/vars'
 body
   font-family: $font-1
+  margin: 0
 </style>
