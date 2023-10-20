@@ -78,6 +78,9 @@ export default {
         }
       })
     },
+    openPopUp() {
+      window.open("https://wild-magic-surge.web.app", "Wild Magic Surge", "popup=yes, width=500, height=700, location=no")
+    }
   },
   computed: {
   },
@@ -127,6 +130,8 @@ export default {
       .pro-button(
         @click='surge()'
       ) Surge!
+  .button.pop-up-handler(v-if='!hasSurged') 
+    .pro-button(@click='openPopUp()') Popup!
 </template>
 
 <style lang="sass" scoped>
@@ -179,5 +184,10 @@ export default {
       @media (max-width: 400px)
         grid-template-columns: 1fr
         row-gap: 1rem
+  .button.pop-up-handler
+    position: fixed
+    bottom: 0
+    right: 0
+    opacity: 0
 
 </style>
