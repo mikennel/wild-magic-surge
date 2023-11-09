@@ -75,12 +75,12 @@ export default {
     },
     generateConic(position) {
       const startColor = this.rgbVal()
-      const lineThickness = Math.ceil(Math.random() * 10)
+      const lineThickness = Math.ceil(Math.random() * 7 + 2)
       return `repeating-conic-gradient(
         from ${Math.floor(Math.random() * 180)}deg at ${position},
         rgba(${startColor}) 0%,
         rgba(${this.rgbVal()}) ${lineThickness}%,
-        rgba(${startColor}) ${lineThickness * 2}%
+        rgba(${startColor}) ${lineThickness * 2.1}%
       )`
     },  
     getSurgeTable (airtableTableId) {
