@@ -54,17 +54,21 @@ export default {
       }
     },
     setBgRadials() {
-      let returnVal = ""
+      let returnVal = []
       this.setPositions()
-      this.positions.forEach((position,idx) => {
-        returnVal += `radial-gradient(
+      this.positions.forEach((position) => {
+        returnVal.push(this.generateRadial(position))
+      })
+      console.log('returnVal', returnVal)
+      return returnVal.join(',')
+    },
+    generateRadial(position) {
+      return `radial-gradient(
           ${position},
           rgba(${this.rgbVal()}),
           ${Math.floor(Math.random() * 2) ? `rgba(${this.rgbVal()}),` : ""}
           transparent ${this.sizeVal()}vw
-        )${idx < this.positions.length-1 ? "," : ""}`
-      })
-      return returnVal
+        )`
     },
     getSurgeTable (airtableTableId) {
       this.loadingSurgeTable = true
@@ -123,7 +127,7 @@ export default {
             :class='{selected: displaySurge === idx}'
           ) {{surgeRoll[idx]+1}}
         p {{surgeTable[surgeRoll[displaySurge]]}} 
-    .button.options(v-if='!hasSurged && !surgeTable.length')
+    .button.options(v-if='!hasSurged && !surgeTable.length && !loadingSurgeTable')
       .pro-button.outline(
         v-for='table in surgeTablesList'
         @click='getSurgeTable(table.id)'
