@@ -29,7 +29,7 @@ export default {
         this.surgeRoll[i] = Math.floor(Math.random() * this.surgeTable.length)
       }
       this.bgColor = `rgba(${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, 1)`
-      this.bgRadials = this.setBgRadials()
+      this.bgRadials = this.setBgPatterns()
     },
     setSurges(numSurges) {
       this.numSurges = numSurges
@@ -50,26 +50,39 @@ export default {
       for (let i = 0; i <= numPositions; i++) {
         const x = Math.floor((Math.random() * 100) + 1)
         const y = Math.floor((Math.random() * 100) + 1)
-        this.positions.push(`circle at ${x}% ${y}%`)
+        this.positions.push(`${x}% ${y}%`)
       }
     },
-    setBgRadials() {
+    setBgPatterns() {
       let returnVal = []
       this.setPositions()
       this.positions.forEach((position) => {
-        returnVal.push(this.generateRadial(position))
+        const pattern = Math.floor(Math.random() * 2)
+        if (pattern == 0)
+          returnVal.push(this.generateRadial(position))
+        else if (pattern == 1)
+          returnVal.push(this.generateConic(position))
       })
-      console.log('returnVal', returnVal)
       return returnVal.join(',')
     },
     generateRadial(position) {
       return `radial-gradient(
-          ${position},
+          circle at ${position},
           rgba(${this.rgbVal()}),
           ${Math.floor(Math.random() * 2) ? `rgba(${this.rgbVal()}),` : ""}
           transparent ${this.sizeVal()}vw
         )`
     },
+    generateConic(position) {
+      const startColor = this.rgbVal()
+      const lineThickness = Math.ceil(Math.random() * 10)
+      return `repeating-conic-gradient(
+        from ${Math.floor(Math.random() * 180)}deg at ${position},
+        rgba(${startColor}) 0%,
+        rgba(${this.rgbVal()}) ${lineThickness}%,
+        rgba(${startColor}) ${lineThickness * 2}%
+      )`
+    },  
     getSurgeTable (airtableTableId) {
       this.loadingSurgeTable = true
       const airtableKey = import.meta.env.VITE_AIRTABLE_KEY
