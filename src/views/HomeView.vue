@@ -15,6 +15,11 @@ export default {
       surgeTable: [],
       numSurges: 0,
       displaySurge: 0,
+      surgeTablesList: [
+        {label: "Original", id: "tblHB4hFJhFJn7OoM"},
+        {label: "Eilean Dorcha", id: "tblYEsaUHNC0giUR7"}
+      ],
+      loadingSurgeTable: false,
     }
   },
   methods: {
@@ -61,17 +66,18 @@ export default {
       })
       return returnVal
     },
-    getSurgeTable () {
+    getSurgeTable (airtableTableId) {
+      this.loadingSurgeTable = true
       const airtableKey = import.meta.env.VITE_AIRTABLE_KEY
       const airtableBaseId = 'appNZQKmwZoWDBqC6'
-      const airtableTableId = 'tblYEsaUHNC0giUR7'
       Airtable.configure({apiKey: airtableKey})
       const base = Airtable.base(airtableBaseId)
-      base
+      
       base(airtableTableId).select().eachPage((records, fetchNextPage) => {
         this.surgeTable = [...this.surgeTable, ...records.map(record => record.fields.Surge)]
         fetchNextPage()
-      }, function done(err) {
+      }, (err) => {
+        this.loadingSurgeTable = false
         if (err) {
           console.error(err)
           return
@@ -79,13 +85,13 @@ export default {
       })
     },
     openPopUp() {
-      window.open("https://wild-magic-surge.web.app", "Wild Magic Surge", "popup=yes, width=500, height=700, location=no")
+      window.open("https://wild-magic-surge.web.app", "Wild Magic Surge", "popup=yes, width=500, height=500, location=no")
     }
   },
   computed: {
   },
   mounted () {
-    this.getSurgeTable()
+    // this.getSurgeTable()
   }
 }
 </script>
@@ -96,8 +102,10 @@ export default {
 )
   .grid
     .info
+      .text(v-if='!hasSurged && (!surgeTable.length || loadingSurgeTable)')
+        h1 {{loadingSurgeTable ? 'Loading Surge Table' : 'Select your surge table.'}}
       .text(
-        v-if='!hasSurged'
+        v-if='!hasSurged && surgeTable.length && !loadingSurgeTable'
       ) 
         h1 Looks like your wild magic is about to surge...
       .text(
@@ -115,8 +123,13 @@ export default {
             :class='{selected: displaySurge === idx}'
           ) {{surgeRoll[idx]+1}}
         p {{surgeTable[surgeRoll[displaySurge]]}} 
+    .button.options(v-if='!hasSurged && !surgeTable.length')
+      .pro-button.outline(
+        v-for='table in surgeTablesList'
+        @click='getSurgeTable(table.id)'
+      ) {{ table.label }}
     .button.options(
-      v-if='!hasSurged'
+      v-if='!hasSurged && surgeTable.length && !loadingSurgeTable'
     )
       .pro-button.outline(
         @click='setSurges(1)'
