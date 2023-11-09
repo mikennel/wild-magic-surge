@@ -83,7 +83,7 @@ export default {
       }, (err) => {
         this.loadingSurgeTable = false
         if (err) {
-          console.error(err)
+          console.error('error',err)
           return
         }
       })
@@ -115,9 +115,9 @@ export default {
       .text(
         v-if='hasSurged'
       ) 
-        h3(
-          v-if='numSurges === 1'
-        ) {{surgeRoll[displaySurge]+1}}
+        //- h3(
+        //-   v-if='numSurges === 1'
+        //- ) {{surgeRoll[displaySurge]+1}}
         .surge-options(
           v-if='numSurges === 2'
         )
@@ -125,7 +125,7 @@ export default {
             v-for='(option,idx) in surgeRoll'
             @click='displaySurge = idx'
             :class='{selected: displaySurge === idx}'
-          ) {{surgeRoll[idx]+1}}
+          ) Option {{idx+1}}
         p {{surgeTable[surgeRoll[displaySurge]]}} 
     .button.options(v-if='!hasSurged && !surgeTable.length && !loadingSurgeTable')
       .pro-button.outline(
