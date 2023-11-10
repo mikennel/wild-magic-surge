@@ -45,7 +45,8 @@ export default {
       return Math.floor((Math.random() * 100) + 30)
     },
     setPositions() {
-      const numPositions = Math.floor(Math.random() * 4 + 1)
+      // const numPositions = Math.floor(Math.random() * 4 + 1)
+      const numPositions = 1
       this.positions = []
       for (let i = 0; i <= numPositions; i++) {
         const x = Math.floor((Math.random() * 100) + 1)
@@ -75,12 +76,20 @@ export default {
     },
     generateConic(position) {
       const startColor = this.rgbVal()
-      const lineThickness = Math.ceil(Math.random() * 7 + 2)
+      const secondStep = Math.ceil(Math.random() * 10)
+      let thirdStep = 2
+      if ([2,3,6,8].includes(secondStep))
+        thirdStep = 2.1
+      if (secondStep ==  7)
+        thirdStep = 2.05
+      if (secondStep ==  9)
+        thirdStep = 2.25
+      console.log('lineThickness',secondStep)
       return `repeating-conic-gradient(
         from ${Math.floor(Math.random() * 180)}deg at ${position},
         rgba(${startColor}) 0%,
-        rgba(${this.rgbVal()}) ${lineThickness}%,
-        rgba(${startColor}) ${lineThickness * 2.1}%
+        rgba(${this.rgbVal()}) ${secondStep}%,
+        rgba(${startColor}) ${secondStep * thirdStep}%
       )`
     },  
     getSurgeTable (airtableTableId) {
