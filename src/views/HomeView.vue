@@ -58,12 +58,15 @@ export default {
       let returnVal = []
       this.setPositions()
       this.positions.forEach((position) => {
-        const pattern = Math.floor(Math.random() * 2)
+        const pattern = Math.floor(Math.random() * 3)
         if (pattern == 0)
           returnVal.push(this.generateRadial(position))
         else if (pattern == 1)
           returnVal.push(this.generateConic(position))
+        else if (pattern == 2)
+          returnVal.push(this.generateGradient())
       })
+      console.log('returnVal!',returnVal)
       return returnVal.join(',')
     },
     generateRadial(position) {
@@ -94,7 +97,13 @@ export default {
         rgba(${this.rgbVal()}) ${secondStep}%,
         rgba(${startColor}) ${secondStep * thirdStep}%
       )`
-    },  
+    },
+    generateGradient() {
+      return `linear-gradient(${Math.ceil(Math.random() * 180)}deg,
+        rgba(${this.rgbVal()}),
+        rgba(${this.rgbVal()})
+      )`
+    }, 
     getSurgeTable (airtableTableId) {
       this.loadingSurgeTable = true
       const airtableKey = import.meta.env.VITE_AIRTABLE_KEY
