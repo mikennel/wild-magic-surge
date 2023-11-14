@@ -39,7 +39,7 @@ export default {
       return Math.floor((Math.random() * 255) +1)
     },
     rgbVal() {
-      return `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, ${((Math.random() * 1.0) + 0.1 ).toFixed(1)}`
+      return `${this.colorVal()}, ${this.colorVal()}, ${this.colorVal()}, ${((Math.random() * 0.8) + 0.1 ).toFixed(1)}`
     },
     sizeVal() {
       return Math.floor((Math.random() * 100) + 30)
