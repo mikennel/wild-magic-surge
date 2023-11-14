@@ -78,13 +78,16 @@ export default {
       const startColor = this.rgbVal()
       const secondStep = Math.ceil(Math.random() * 10)
       let thirdStep = 2
-      if ([2,3,6,8].includes(secondStep))
-        thirdStep = 2.1
-      if (secondStep ==  7)
+      if ([7].includes(secondStep))
         thirdStep = 2.05
-      if (secondStep ==  9)
+      if ([8].includes(secondStep))
+        thirdStep = 2.075
+      if ([4,6].includes(secondStep))
+        thirdStep = 2.1
+      if ([3].includes(secondStep))
+        thirdStep = 2.225
+      if ([9].includes(secondStep))
         thirdStep = 2.25
-      console.log('lineThickness',secondStep)
       return `repeating-conic-gradient(
         from ${Math.floor(Math.random() * 180)}deg at ${position},
         rgba(${startColor}) 0%,
