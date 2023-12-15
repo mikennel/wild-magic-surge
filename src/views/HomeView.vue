@@ -25,7 +25,9 @@ export default {
   },
   methods: {
     surge() {
-      this.hasSurged = true
+      if (!this.hasSurged) {
+        this.hasSurged = true
+      }
       for (let i = 0; i < this.numSurges; i++) {
         this.surgeRoll[i] = Math.floor(Math.random() * this.surgeTable.length)
       }
@@ -67,7 +69,7 @@ export default {
         else if (pattern == 2)
           returnVal.push(this.generateGradient())
       })
-      console.log('returnVal!',returnVal)
+      
       return returnVal.join(',')
     },
     generateRadial(position) {
@@ -197,7 +199,8 @@ export default {
   height: 100vh
   #canvas
     position: absolute
-    pointer-events: none
+    // pointer-events: none
+    z-index: 1
   .grid
     grid-template-rows: 80% 20%
     grid-template-columns: 100%
@@ -226,6 +229,9 @@ export default {
               font-weight: 600
               width: fit-content
               background-color: #ffffff33
+    .button
+      position: relative
+      z-index: 10
   .text, .pro-button
     border-radius: 1em
     background-color: #ffffff88

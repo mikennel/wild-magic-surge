@@ -26,7 +26,7 @@ export default () => {
       limiterTotal = 5,
       limiterTick = 0,
       // this will time the auto launches of fireworks, one launch per 80 loop ticks
-      timerTotal = 80,
+      timerTotal = 400,
       timerTick = 0,
       mousedown = false,
       // mouse x coordinate,
@@ -75,7 +75,7 @@ export default () => {
     }
     this.angle = Math.atan2( ty - sy, tx - sx );
     this.speed = 2;
-    this.acceleration = 1.05;
+    this.acceleration = 1.01; // speed of projectile 1 - 1.05
     this.brightness = random( 50, 70 );
     // circle target indicator radius
     this.targetRadius = 1;
@@ -127,7 +127,7 @@ export default () => {
     
     ctx.beginPath();
     // draw the target for this firework with a pulsing circle
-    ctx.arc( this.tx, this.ty, this.targetRadius, 0, Math.PI * 2 );
+    // ctx.arc( this.tx, this.ty, this.targetRadius, 0, Math.PI * 2 );
     ctx.stroke();
   }
 
@@ -145,15 +145,15 @@ export default () => {
     this.angle = random( 0, Math.PI * 2 );
     this.speed = random( 1, 10 );
     // friction will slow the particle down
-    this.friction = 0.95;
+    this.friction = 0.98;
     // gravity will be applied and pull the particle down
-    this.gravity = 1;
+    this.gravity = 0;
     // set the hue to a random number +-50 of the overall hue variable
     this.hue = random( hue - 50, hue + 50 );
     this.brightness = random( 50, 80 );
     this.alpha = 1;
     // set how fast the particle fades out
-    this.decay = random( 0.015, 0.03 );
+    this.decay = 0.005
   }
 
   // update particle
