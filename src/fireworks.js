@@ -189,7 +189,7 @@ export default () => {
   // create particle group/explosion
   function createParticles( x, y ) {
     // increase the particle count for a bigger explosion, beware of the canvas performance hit with the increased particles though
-    var particleCount = 30;
+    var particleCount = 160;
     while( particleCount-- ) {
       particles.push( new Particle( x, y ) );
     }
