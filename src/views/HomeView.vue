@@ -1,5 +1,6 @@
 <script>
 import Airtable from 'airtable'
+import fireworks from '../fireworks'
 
 export default {
   name: 'PublicHome',
@@ -130,6 +131,7 @@ export default {
   },
   mounted () {
     // this.getSurgeTable()
+    fireworks()
   }
 }
 </script>
@@ -138,6 +140,7 @@ export default {
 .main-container(
   :style='{background: bgRadials, "background-color": bgColor}'
 )
+  canvas(id='canvas')
   .grid
     .info
       .text(v-if='!hasSurged && (!surgeTable.length || loadingSurgeTable)')
@@ -192,6 +195,9 @@ export default {
   transition: .5s
   font-size: 1.3em
   height: 100vh
+  #canvas
+    position: absolute
+    pointer-events: none
   .grid
     grid-template-rows: 80% 20%
     grid-template-columns: 100%
