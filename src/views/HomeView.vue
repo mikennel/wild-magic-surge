@@ -229,7 +229,7 @@ export default {
               font-weight: 600
               width: fit-content
               background-color: #ffffff33
-    .button
+    .button, .info > .text > .surge-options
       position: relative
       z-index: 10
   .text, .pro-button
