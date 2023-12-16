@@ -229,9 +229,9 @@ export default {
               font-weight: 600
               width: fit-content
               background-color: #ffffff33
-    .button, .info > .text > .surge-options, .pop-up-handler
-      position: relative
-      z-index: 10
+  .button, .info > .text > .surge-options
+    position: relative
+    z-index: 10
   .text, .pro-button
     border-radius: 1em
     background-color: #ffffff88
