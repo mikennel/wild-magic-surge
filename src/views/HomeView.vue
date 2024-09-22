@@ -17,7 +17,8 @@ export default {
       numSurges: 0,
       displaySurge: 0,
       surgeTablesList: [
-        {label: "Original", id: "tblHB4hFJhFJn7OoM"},
+        {label: "Original ('24)", id: "tblS30Q7nytE0Gw7Y"},
+        {label: "Original ('14)", id: "tblHB4hFJhFJn7OoM"},
         {label: "Eilean Dorcha", id: "tblYEsaUHNC0giUR7"}
       ],
       loadingSurgeTable: false,
@@ -115,7 +116,10 @@ export default {
       const base = Airtable.base(airtableBaseId)
       
       base(airtableTableId).select().eachPage((records, fetchNextPage) => {
-        this.surgeTable = [...this.surgeTable, ...records.map(record => record.fields.Surge)]
+        this.surgeTable = [...this.surgeTable, ...records.map(record => ({
+          surge: record.fields.Surge,
+          rollable: record.fields.Rollable ? JSON.parse(record.fields.Rollable) : null
+        }))]
         fetchNextPage()
       }, (err) => {
         this.loadingSurgeTable = false
@@ -124,6 +128,10 @@ export default {
           return
         }
       })
+    },
+    getRollable(rollable) {
+      const idx = Math.floor(Math.random() * rollable.length)
+      return rollable[idx]
     },
     openPopUp() {
       window.open("https://wild-magic-surge.web.app", "Wild Magic Surge", "popup=yes, width=500, height=500, location=no")
@@ -165,7 +173,8 @@ export default {
             @click='displaySurge = idx'
             :class='{selected: displaySurge === idx}'
           ) Option {{idx+1}}
-        p {{surgeTable[surgeRoll[displaySurge]]}} 
+        p {{surgeTable[surgeRoll[displaySurge]].surge}}
+        p(v-if='surgeTable[surgeRoll[displaySurge]].rollable') {{getRollable(surgeTable[surgeRoll[displaySurge]].rollable)}} 
     .button.options(v-if='!hasSurged && !surgeTable.length && !loadingSurgeTable')
       .pro-button.outline(
         v-for='table in surgeTablesList'
@@ -244,6 +253,8 @@ export default {
       justify-items: center
       width: 80%
       margin: auto
+      column-gap: 1rem
+      row-gap: 1rem
       @media (max-width: 400px)
         grid-template-columns: 1fr
         row-gap: 1rem
