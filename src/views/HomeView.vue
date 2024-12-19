@@ -18,8 +18,9 @@ export default {
       displaySurge: 0,
       surgeTablesList: [
         {label: "Original ('24)", id: "tblS30Q7nytE0Gw7Y"},
-        {label: "Original ('14)", id: "tblHB4hFJhFJn7OoM"},
-        {label: "Eilean Dorcha", id: "tblYEsaUHNC0giUR7"}
+        {label: "Expanded ('14)", id: "tblHB4hFJhFJn7OoM"},
+        {label: "Eilean Dorcha", id: "tblYEsaUHNC0giUR7"},
+        {label: "Insulum", id: "tbldSSugP2yEF3jSK"}
       ],
       loadingSurgeTable: false,
     }
